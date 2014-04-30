@@ -31,12 +31,13 @@ sub ngram($$){
 my $testFileName = "data/corpus-test.txt";
 my $trainFileName = "data/corpus-train.txt";
 
+# Each line is a sentence and a language code at the end
+# 
+
 my $N = 2; # for ngram
 $N = $ARGV[0] if(defined $ARGV[0]);
 
 print "ngram = $N gram\n";
-print "Press any key to continue ...\n";
-<STDIN>;
 
 my %lgCodes = ();
 my %lgCodeNgramCount = (); # lgCode:ngram-count
@@ -61,10 +62,8 @@ while(my $line = <inFile>){
 close(inFile);
 print keys(%lgCodes)." languages\n";
 
-# there is an error in line 28490 of the training data 
 foreach my $lg(keys(%lgCodes)){
 	next if($lg =~ /HASH/);
-#	print "$lg \t ".$lgCodes{$lg}."\n";
 	delete $lgCodes{$lg} if($lgCodes{$lg} == 1);
 }
 # read test file
@@ -110,12 +109,8 @@ while(my $line = <inFile>){
 			$minDistance = $distance;
 			$lgRes = $lg;
 		}
-#		print "The best lg --> $lgRes ($lgCode) [$minDistance]\n";
 	}
-#	$result{$sentence} = $lgRes."_".$lgCode;
 	$correct++ if($lgRes eq $lgCode);
-#	print $result{$sentence}."\n";
-#	<STDIN>;
 }
 close(inFile);
 
