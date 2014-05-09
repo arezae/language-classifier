@@ -96,7 +96,7 @@ while(my $line = <inFile>){
 				$ngCount = $langNgram{$lg}{$ng} if (defined $langNgram{$lg}{$ng}); 
 				my $qx = $ngCount / $lgCodeNgramCount{$lg};
 				my $px = $ngramHash->{$ng} / $totalNgramCount;				
-				$distance += $px + log($px/$qx);
+				$distance += $px * log($px/$qx);
 			}
 		}
 		if (defined $minDistance){
